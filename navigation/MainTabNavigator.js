@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import PriceScreen from '../screens/PriceScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
@@ -13,28 +13,28 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const PriceStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Price: PriceScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+PriceStack.navigationOptions = {
+  tabBarLabel: 'Prices',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-cash`
+          : 'md-cash'
       }
     />
   ),
 };
 
-HomeStack.path = '';
+PriceStack.path = '';
 
 const LinksStack = createStackNavigator(
   {
@@ -69,7 +69,7 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
+  PriceStack,
   LinksStack,
   SettingsStack,
 });

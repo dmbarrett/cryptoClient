@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   Image,
   Platform,
@@ -13,6 +13,31 @@ import {
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
+
+  const [currentPrices, setCurrentPrices] = useState({})
+
+  useEffect(() => {
+    loadPrices();
+  }, []);
+
+  const loadPrices = async () => {
+    try {
+      const res = await fetch("http://localhost:9000/latestlistings");
+      const jsonres = await res.json()
+      setCurrentPrices(await jsonres.data);
+    } catch (err) {
+      console.log("error setting prices: " + err);
+    }
+  };
+
+
+
+
+
+
+
+
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -32,7 +57,7 @@ export default function HomeScreen() {
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
 
-          <Text style={styles.getStartedText}>Get started by opening</Text>
+          <Text style={styles.getStartedText}>{JSON.stringify(currentPrices)}</Text>
 
           <View
             style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
